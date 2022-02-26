@@ -13,6 +13,7 @@
             <span class="text-danger">@error('password'){{$message}} @enderror</span><br><br>
             <input type="submit" class="btn btn-success" value="Login" >
             <a href="register" class="ml-3">Don't have an account yet?</a>
+            
     </form>
   </div>
 @endsection

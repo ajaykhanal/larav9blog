@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Session;
 use Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class CustomauthController extends Controller
 {
@@ -81,6 +82,8 @@ public function detail($id){
     $category= Category::find($id);
     return view('users.detail_post',['post'=>$post,'category'=>$category]);
 }
+
+
 
 
 }

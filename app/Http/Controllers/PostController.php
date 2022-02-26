@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Customauth;
 use App\Models\Post;
-
+use Image;
+use Illuminate\Support\Str;
 class PostController extends Controller
 {
     public function index(){
@@ -17,9 +18,12 @@ class PostController extends Controller
     public function add_post(Request $request){
         if($request->hasFile('thumb_image')){
             $image2= $request->file('thumb_image');
-            $reThumbImage= time().'.'.$image2->getClientOriginalExtension();
+            $reThumbImage= Str::slug($request->title).'.'.$image2->getClientOriginalExtension();
+            Image::make($image2)->resize(300,200)->save('imgs/'.$reThumbImage);
+            // $image_resize= Image::make($image2->getRealPath());
+            // $image_resize->resize(300,300);
             $dest2= public_path('/imgs');
-            $image2->move($dest2,$reThumbImage);
+            // $image_resize->save($dest2,$reThumbImage);
         }else{
             $reThumbImage='na';
         }
@@ -34,6 +38,8 @@ class PostController extends Controller
         return redirect('/my_posts')->with('success',"Post has been added!!");
     }
 
+
+
     public function edit_post($id){
         $post= Post::find($id);
         $cats= Category::all();
@@ -43,11 +49,14 @@ class PostController extends Controller
     public function edit_post_data(Request $request, $id){
         if($request->hasFile('thumb_image')){
             $image2= $request->file('thumb_image');
-            $ThumbImage= time().'.'.$image2->getClientOriginalExtension();
+            $reThumbImage= Str::slug($request->title).'.'.$image2->getClientOriginalExtension();
+            Image::make($image2)->resize(300,200)->save('imgs/'.$reThumbImage);
+            // $image_resize= Image::make($image2->getRealPath());
+            // $image_resize->resize(300,300);
             $dest2= public_path('/imgs');
-            $image2->move($dest2,$ThumbImage);
+            // $image_resize->save($dest2,$reThumbImage);
         }else{
-            $ThumbImage= $request->thumb_image;
+            $reThumbImage= $request->thumb_image;
         }
         $post= Post::find($id);
         // if(Session::has('loginId')){
@@ -58,7 +67,7 @@ class PostController extends Controller
         $post->title= $request->title;
         $post->about= $request->about;
        
-        $post->thumb_image= $ThumbImage;
+        $post->thumb_image= $reThumbImage;
        
         $post->save();
         return redirect('/my_posts')->with('success',"Post has been updated!!");

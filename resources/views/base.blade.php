@@ -24,31 +24,30 @@
                 <a class="nav-link active" aria-current="page" href="/home">Home</a>
                 <a class="nav-link active" aria-current="page" href="/category">Category</a>
                 <a class="nav-link active" aria-current="page" href="/post">Post</a>
-                <a class="nav-link active" aria-current="page" href="{{route('my_posts')}}">My Posts</a>&nbsp;&nbsp;&nbsp;
+                <a class="nav-link active mr-70" aria-current="page" href="{{route('my_posts')}}">My Posts</a>&nbsp;&nbsp;&nbsp;
                 <h7 class="text-white">Welcome !!<span class="badge badge-danger">{{Auth::user()->email}}</span></h7>
                 @endauth
             </div>
           </div>
         </div>
       </nav>
+      
             @if(Session::has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Message!</strong> {{Session::get('success')}}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+              {{Session::get('success')}}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
            @endif
 
            @if(Session::has('error'))
+            
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Message!</strong> {{Session::get('fail')}}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+              {{Session::get('error')}}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             
           @endif
+      
     <section>
         @yield('mainarea')
    </section>

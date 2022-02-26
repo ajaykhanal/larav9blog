@@ -44,3 +44,4 @@ Route::get('edit_post/{id}/',[PostController::class,'edit_post'])->name('edit_po
 Route::put('edit_post/{id}/',[PostController::class,'edit_post_data'])->name('edit_post_data')->middleware('auth');
 Route::get('my_posts',[PostController::class,'my_post'])->name('my_posts');
 Route::get('delete_post/{id}/',[PostController::class,'delete_post'])->name('delete_post')->middleware('auth');
+
